@@ -1,0 +1,16 @@
+.background--dark {
+  background-color: $primaryColor;
+  color: #fff;
+
+  .btn:hover {
+    background-color: #fff;
+    color: $primaryColor;
+  }
+
+  .headline {
+    border-bottom: 10px solid #fff;
+  } 
+
+  .input {    
+  }
+}

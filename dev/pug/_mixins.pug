@@ -1,0 +1,43 @@
+//- PHP MIXINS
+
+mixin php(string)
+  | <?php !{string}; ?>
+
+mixin phpEcho(string)
+  | <?php echo !{string}; ?>
+
+mixin phpIf(condition)
+  | <?php if (!{condition}): ?>
+  if block 
+    block
+  | <?php endif; ?>      
+
+mixin phpElse(condition)
+  | <?php else: ?>
+  if block 
+    block
+
+mixin phpElseIf(condition)
+  | <?php elseif (!{condition}): ?>
+  if block 
+    block    
+
+mixin phpForeach(condition)
+  | <?php foreach (!{condition}): ?>
+  if block 
+    block
+  | <?php endforeach; ?>  
+
+mixin phpFor(condition)
+  | <?php for (!{condition}): ?>
+  if block 
+    block
+  | <?php endfor; ?>    
+
+mixin phpWhile(condition)
+  | <?php while (!{condition}): ?>
+  if block 
+    block
+  | <?php endwhile; ?>    
+    
+  

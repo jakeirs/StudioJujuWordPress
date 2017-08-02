@@ -1,0 +1,57 @@
+.wrapper {
+    max-width: 1800px;
+    width: 100%;
+    padding: 0 25px;
+    margin: auto;
+    text-align: center;
+
+  &--small {
+    max-width: 950px;
+  }
+
+  &--left {    
+    max-width: 970px;
+    margin-right: 0;
+    padding: 50px 25px;
+    @include atMedium {
+      padding: 60px 70px;
+      text-align: left;      
+    }
+  }  
+
+  &--right {
+    max-width: 970px;
+    margin-left: 0;
+    padding: 50px 25px;
+    @include atMedium {
+      padding: 60px 70px;
+      text-align: left;
+    }
+  }
+
+  &--contact {
+    @include atExtraLarge {      
+    padding-right: 165px;
+    }
+  }
+
+  &--map {
+    padding: 0;
+    max-width: 1100px;
+  }
+
+  &--text-left {
+    max-width: 1500px;
+    text-align: left;    
+  }
+
+  &--navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+}  
+
+  

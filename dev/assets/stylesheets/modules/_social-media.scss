@@ -1,0 +1,28 @@
+.social-media {
+  position: fixed;
+  left: 0;
+  top: 45%;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  
+  &__list {   
+
+    list-style: none;
+    vertical-align: middle;
+    display: inline-block;
+    // width: 40px;
+  }
+
+  &__item {
+
+  }
+
+  &--fixed {
+    transition: all 0.5s ease-in-out;
+    position: fixed;
+    left: 0;
+    top: 45%!important;
+    z-index: 20;
+    opacity: 1;
+  }
+}

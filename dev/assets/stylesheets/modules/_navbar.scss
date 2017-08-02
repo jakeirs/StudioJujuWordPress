@@ -1,0 +1,21 @@
+.navbar {
+  width: 100%;
+  position: relative;
+  background: #ffffff;
+
+  &__bar--left {
+  }
+
+  &__bar--right {
+  }
+
+  // class added dynamically by JS
+  &--fixed {
+    position: fixed;
+    top: 0;
+    z-index: 20;
+    .nav {
+      padding-top: 0;
+    }
+  }
+} 
