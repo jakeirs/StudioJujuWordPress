@@ -1,37 +1,51 @@
 include pug/_mixins  
 
-+php( "get_header()" )
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta( name="viewport" content="initial-scale=1")
+    title Juju Studio
+    link(rel="stylesheet" href="assets/stylesheets/main.css") 
+    +php( "wp_head() ")
+  body
+    #home-welcome
+      include header
 
-section#blog.page-section
-  .wrapper
-    h2.headline Blog
-    .page-section__content.row.row--space-around
-      +php( "global $post" )
-      +php( "$args = array(" +
-        "'posts_per_page'   => 12," +
-        "'orderby'          => 'date'" +
-        ")" )
-      +php( "$myposts = get_posts( $args )" )
-      +phpIf( "$myposts" )  
-        +phpForeach( "$myposts as $post" )     
-          +php( "setup_postdata( $post )" ) 
-          .blog-post.blog-post--margin-bot
-            .blog-post__header
-              .blog-post__title
-                a( href!="<?php the_permalink(); ?>" )
-                  +php( "the_title()" )
-              .blog-post__author 
-                +php( "the_author()" )
-              .blog-post__date 
-                +php( "the_date()" )
-              .blog-post__taxonomy
-                +php( "the_category(', ')" )
-            +phpIf( "has_post_thumbnail()" )    
-              a(href!=" <?php the_permalink(); ?> ")    
-                img.blog-post__photo(src!='<?php the_post_thumbnail_url(); ?>')
-            .blog-post__excerpt
-              +php( "the_excerpt()" )
-                  
-    a.btn.btn-glitch(href!="blog") Read More Posts
-      +php( "wp_reset_query()" )  
-+php( "get_footer()" )
+      section#blog.page-section
+        .wrapper
+          h2.headline Blog
+          .page-section__content.row.row--space-around
+            +php( "global $post" )
+            .
+              <?php
+              $args = array(
+                'posts_per_page'   => 12, 
+                'orderby'          => 'date' 
+              );
+              $myposts = get_posts( $args );
+              ?>
+            +phpIf( "$myposts" )  
+              +phpForeach( "$myposts as $post" )     
+                +php( "setup_postdata( $post )" ) 
+                .blog-post.blog-post--margin-bot
+                  .blog-post__header
+                    .blog-post__title
+                      a( href!="<?php the_permalink(); ?>" )
+                        +php( "the_title()" )
+                    .blog-post__author 
+                      +php( "the_author()" )
+                    .blog-post__date 
+                      +php( "the_date()" )
+                    .blog-post__taxonomy
+                      +php( "the_category(', ')" )
+                  +phpIf( "has_post_thumbnail()" )    
+                    a(href!=" <?php the_permalink(); ?> ")    
+                      img.blog-post__photo(src!='<?php the_post_thumbnail_url(); ?>')
+                  .blog-post__excerpt
+                    +php( "the_excerpt()" )
+                        
+          a.btn.btn-glitch(href!="blog") Read More Posts
+            +php( "wp_reset_query()" )  
+
+      +php( "get_footer()" )

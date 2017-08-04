@@ -1,30 +1,39 @@
 include pug/_mixins  
 
-+php( "get_header()" )
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta( name="viewport" content="initial-scale=1")
+    title Juju Studio
+    link(rel="stylesheet" href="assets/stylesheets/main.css") 
+    +php( "wp_head() ")
+  body
+    #home-welcome
+      include header
 
+      section.page-section--breadcrumbs
+        .wrapper.wrapper--text-left
+          nav(role=navigation)
+            +php( "juju_breadcrumb( true, true )" )
 
-section.page-section--breadcrumbs
-  .wrapper.wrapper--text-left
-    nav(role=navigation)
-      +php( "juju_breadcrumb( true, true )" )
-
-+phpIf( "have_posts()" )
-  +phpWhile( "have_posts()" )
-    +php( "the_post()" )
-    section
-      .wrapper.wrapper--text-left
-        .blog-post.blog-post--content
-          .blog-post__header
-            .blog-post__title.blog-post__title--large
-              +php( "the_title()" )
-            .blog-post__author
-              +phpEcho( "the_author()" )
-            .blog-post__date
-              +php( "the_date()" )
-            .blog-post__taxonomy 
-              +php( "the_category(', ')" )
-          img.blog-post__photo.blog-post__photo--content(src!="<?php the_post_thumbnail_url(); ?>")
-          .generic-content
-            +phpEcho( "wpautop( the_content() )" )
-+php( "wp_reset_query()" )
-+php( "get_footer()" )
+      +phpIf( "have_posts()" )
+        +phpWhile( "have_posts()" )
+          +php( "the_post()" )
+          section
+            .wrapper.wrapper--text-left
+              .blog-post.blog-post--content
+                .blog-post__header
+                  .blog-post__title.blog-post__title--large
+                    +php( "the_title()" )
+                  .blog-post__author
+                    +phpEcho( "the_author()" )
+                  .blog-post__date
+                    +php( "the_date()" )
+                  .blog-post__taxonomy 
+                    +php( "the_category(', ')" )
+                img.blog-post__photo.blog-post__photo--content(src!="<?php the_post_thumbnail_url(); ?>")
+                .generic-content
+                  +phpEcho( "wpautop( the_content() )" )
+      +php( "wp_reset_query()" )
+      +php( "get_footer()" )

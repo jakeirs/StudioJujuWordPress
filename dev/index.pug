@@ -1,96 +1,115 @@
 include pug/_mixins  
 
-+php( "get_header('home')" )
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta( name="viewport" content="initial-scale=1")
+    title Juju Studio
+    link(rel="stylesheet" href="assets/stylesheets/main.css") 
+    +php( "wp_head() ")
+  body
+    #home-welcome
+      include header-home
+      
 
-section#about-us.page-section
-  .wrapper.wrapper--small
-    h2.headline About Us
-    .page-section__content.page-section__content--padding-bot
-      |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac risus molestie, venenatis erat vitae, lobortis dolor. Aliquam erat volutpat. Aenean velit neque, consequat sollicitudin turpis quis, rhoncus tempor lorem. Quisque vitae dolor eget nunc posuere interdum sed ultrices justo. Quisque laoreet a mauris quis tempor. Phasellus sollicitudin cursus facilisis. Phasellus massa ante, lacinia ac metus eu, dapibus lacinia nisl.
-    a.btn.btn-glitch(href!="#") More
+      section#about-us.page-section
+        .wrapper.wrapper--small
+          h2.headline About Us
+          .page-section__content.page-section__content--padding-bot
+            |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac risus molestie, venenatis erat vitae, lobortis dolor. Aliquam erat volutpat. Aenean velit neque, consequat sollicitudin turpis quis, rhoncus tempor lorem. Quisque vitae dolor eget nunc posuere interdum sed ultrices justo. Quisque laoreet a mauris quis tempor. Phasellus sollicitudin cursus facilisis. Phasellus massa ante, lacinia ac metus eu, dapibus lacinia nisl.
+          a.btn.btn-glitch(href!="#") More
 
-section#our-team.page-section
-  .wrapper
-    h2.headline Our team
-    .page-section__content.row.row--space-around        
-      .team-member
-        img.team-member__photo(src="assets/img/artist-1.jpg")
-        .team-member__title Kate Janczarek
-        .team-member__subtitle tatoo artist
-      .team-member
-        img.team-member__photo(src="assets/img/artist-1.jpg")
-        .team-member__title Kate Janczarek
-        .team-member__subtitle tatoo artist  
-      .team-member
-        img.team-member__photo(src="assets/img/artist-2.jpg")
-        .team-member__title Kate Janczarek
-        .team-member__subtitle tatoo artist
-      .team-member
-        img.team-member__photo(src="assets/img/artist-3.jpg")
-        .team-member__title Kate Janczarek
-        .team-member__subtitle tatoo artist    
+      section#our-team.page-section
+        .wrapper
+          h2.headline Our team
+          .page-section__content.row.row--space-around        
+            .team-member
+              img.team-member__photo(src="assets/img/artist-1.jpg")
+              .team-member__title Kate Janczarek
+              .team-member__subtitle tatoo artist
+            .team-member
+              img.team-member__photo(src="assets/img/artist-1.jpg")
+              .team-member__title Kate Janczarek
+              .team-member__subtitle tatoo artist  
+            .team-member
+              img.team-member__photo(src="assets/img/artist-2.jpg")
+              .team-member__title Kate Janczarek
+              .team-member__subtitle tatoo artist
+            .team-member
+              img.team-member__photo(src="assets/img/artist-3.jpg")
+              .team-member__title Kate Janczarek
+              .team-member__subtitle tatoo artist    
+      .
+        <?php
+          $gallery = get_posts( array(
+                    'post_type'    => 'gallery',    
+                    ) );
+        ?>
+      +phpIf( "$gallery" )
+        section#gallery.page-section
+        .wrapper.test-class
+          h2.headline Gallery
+          .page-section__content.page-section__content--padding-bot.row--grid 
+            +phpForeach( "$gallery as $post" )
+              +phpIf( "has_post_thumbnail( $post->ID )" )  
+                +php( "$thumbs = get_the_post_thumbnail_url( $post->ID )" )
+                .col-small-6.col-medium-3.col-large-2.col-gutter--gallery
+                  img.gallery__item(src!="<?php echo $thumbs; ?>") 
 
-+php( "    $gallery = get_posts( array(        'post_type'    => 'gallery',    ) );" )
-+phpIf( "$gallery" )
-  section#gallery.page-section
-  .wrapper.test-class
-    h2.headline Gallery
-    .page-section__content.page-section__content--padding-bot.row--grid 
-      +phpForeach( "$gallery as $post" )
-        +phpIf( "has_post_thumbnail( $post->ID )" )  
-          +php( "$thumbs = get_the_post_thumbnail_url( $post->ID )" )
-          .col-small-6.col-medium-3.col-large-2.col-gutter--gallery
-            img.gallery__item(src!="<?php echo $thumbs; ?>") 
-
-    a.btn.btn-glitch(href!="#") More
-            
-section#info.page-section
-  .row--grid
-    .col-medium-6
-      .wrapper.wrapper--left
-        h2.headline FAQ
-        .page-section__content.page-section__content--subsection
-          |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac risus molestie, venenatis erat vitae, lobortis dolor. Aliquam erat volutpat. Aenean velit neque, consequat sollicitudin turpis quis, rhoncus tempor lorem. Quisque vitae dolor eget nunc posuere interdum sed ultrices justo. Quisque laoreet a mauris quis tempor. Phasellus sollicitudin cursus facilisis. Phasellus massa ante, lacinia ac metus eu, dapibus lacinia nisl.
-        a.btn.btn-glitch(href!="#") More
-    .col-medium-6.background--dark
-      .wrapper.wrapper--right
-        h2.headline Pre care advice
-        .page-section__content.page-section__content--subsection
-          |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac risus molestie, venenatis erat vitae, lobortis dolor. Aliquam erat volutpat. Aenean velit neque, consequat sollicitudin turpis quis, rhoncus tempor lorem. Quisque vitae dolor eget nunc posuere interdum sed ultrices justo. Quisque laoreet a mauris quis tempor. Phasellus sollicitudin cursus facilisis. Phasellus massa ante, lacinia ac metus eu, dapibus lacinia nisl.
-        a.btn.btn-glitch(href!="#") More
-  +php("global $post")
-  +php( "$args = array(" +
-    "'posts_per_page'   => 3," +
-    "'orderby'          => 'date'" +
-    ")" )
-  +php( "$myposts = get_posts( $args )" )
-  +phpIf( "$myposts" )  
-    section#blog.page-section
-      .wrapper
-        h2.headline Blog
-        .page-section__content.page-section__content--padding-bot.row.row--space-around
-
-
-          +phpForeach( "$myposts as $post" )
-            +php( "setup_postdata( $post )" )
-
-            .blog-post
-                .blog-post__header
-                  .blog-post__title
-                    a(href!="<?php the_permalink(); ?>")
-                      +php( "the_title()" )
-                  .blog-post__author 
-                    +php( "the_author()" )
-                  .blog-post__date 
-                    +php( "the_date()" )
-                  .blog-post__taxonomy
-                    +php( "the_category(', ')" )
-                +phpIf( "has_post_thumbnail()" )      
-                  a(href!="<?php the_permalink(); ?>")    
-                    img.blog-post__photo(src!='<?php the_post_thumbnail_url(); ?>')
-                .blog-post__excerpt
-                  +phpEcho( "wpautop( the_excerpt() )" )
+          a.btn.btn-glitch(href!="#") More
                   
-        a.btn.btn-glitch(href!="blog") Read More Posts
-  +php( "wp_reset_query()" )
-+php( "get_footer()" )
+      section#info.page-section
+        .row--grid
+          .col-medium-6
+            .wrapper.wrapper--left
+              h2.headline FAQ
+              .page-section__content.page-section__content--subsection
+                |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac risus molestie, venenatis erat vitae, lobortis dolor. Aliquam erat volutpat. Aenean velit neque, consequat sollicitudin turpis quis, rhoncus tempor lorem. Quisque vitae dolor eget nunc posuere interdum sed ultrices justo. Quisque laoreet a mauris quis tempor. Phasellus sollicitudin cursus facilisis. Phasellus massa ante, lacinia ac metus eu, dapibus lacinia nisl.
+              a.btn.btn-glitch(href!="#") More
+          .col-medium-6.background--dark
+            .wrapper.wrapper--right
+              h2.headline Pre care advice
+              .page-section__content.page-section__content--subsection
+                |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac risus molestie, venenatis erat vitae, lobortis dolor. Aliquam erat volutpat. Aenean velit neque, consequat sollicitudin turpis quis, rhoncus tempor lorem. Quisque vitae dolor eget nunc posuere interdum sed ultrices justo. Quisque laoreet a mauris quis tempor. Phasellus sollicitudin cursus facilisis. Phasellus massa ante, lacinia ac metus eu, dapibus lacinia nisl.
+              a.btn.btn-glitch(href!="#") More
+        +php("global $post")
+        +php( "$args = array(" +
+          "'posts_per_page'   => 3," +
+          "'orderby'          => 'date'" +
+          ")" )
+        +php( "$myposts = get_posts( $args )" )
+        +phpIf( "$myposts" )  
+          section#blog.page-section
+            .wrapper
+              h2.headline Blog
+              .page-section__content.page-section__content--padding-bot.row.row--space-around
+
+
+                +phpForeach( "$myposts as $post" )
+                  +php( "setup_postdata( $post )" )
+
+                  .blog-post
+                      .blog-post__header
+                        .blog-post__title
+                          a(href!="<?php the_permalink(); ?>")
+                            +php( "the_title()" )
+                        .blog-post__author 
+                          +php( "the_author()" )
+                        .blog-post__date 
+                          +php( "the_date()" )
+                        .blog-post__taxonomy
+                          +php( "the_category(', ')" )
+                      +phpIf( "has_post_thumbnail()" )      
+                        a(href!="<?php the_permalink(); ?>")    
+                          img.blog-post__photo(src!='<?php the_post_thumbnail_url(); ?>')
+                      .blog-post__excerpt
+                        +phpEcho( "wpautop( the_excerpt() )" )
+                        
+              a.btn.btn-glitch(href!="blog") Read More Posts
+        +php( "wp_reset_query()" )
+
+      include footer
+        
+
+      //- +php( "get_footer()" )
