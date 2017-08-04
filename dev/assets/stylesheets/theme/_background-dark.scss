@@ -1,10 +1,12 @@
 .background--dark {
   background-color: $primaryColor;
   color: #fff;
+  font-weight: 300;
 
   .btn:hover {
     background-color: #fff;
     color: $primaryColor;
+    font-weight: 300;
   }
 
   .headline {

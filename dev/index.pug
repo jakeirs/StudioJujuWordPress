@@ -7,39 +7,58 @@ html
     meta( name="viewport" content="initial-scale=1")
     +php( "wp_head() ")
   body
-    #home-welcome
-      include header-home
+    #home-welcome    
+      include header-home      
 
-      //- include template-parts/test
-      
+      // About
+      .
+        <?php
+          $slug = 'about';
+          $about = get_page_by_path( $slug );
+          $page = $about;
+          $description = get_post_meta( $page->ID, '_easy_wp_meta_description' )[0];
+        ?>
+      +phpIf( "$about" )
+        section#about-us.page-section
+          .wrapper.wrapper--small
+            h2.headline
+              +phpEcho( "$page->post_title" )
+            .page-section__content.page-section__content--padding-bot
+              +phpEcho( "$description" )
+            a.btn.btn-glitch(href!="<?php echo $slug; ?>") More
+          +php( "wp_reset_query()" )   
 
-      section#about-us.page-section
-        .wrapper.wrapper--small
-          h2.headline About Us
-          .page-section__content.page-section__content--padding-bot
-            |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac risus molestie, venenatis erat vitae, lobortis dolor. Aliquam erat volutpat. Aenean velit neque, consequat sollicitudin turpis quis, rhoncus tempor lorem. Quisque vitae dolor eget nunc posuere interdum sed ultrices justo. Quisque laoreet a mauris quis tempor. Phasellus sollicitudin cursus facilisis. Phasellus massa ante, lacinia ac metus eu, dapibus lacinia nisl.
-          a.btn.btn-glitch(href!="#") More
 
-      section#our-team.page-section
-        .wrapper
-          h2.headline Our team
-          .page-section__content.row.row--space-around        
-            .team-member
-              img.team-member__photo(src="assets/img/artist-1.jpg")
-              .team-member__title Kate Janczarek
-              .team-member__subtitle tatoo artist
-            .team-member
-              img.team-member__photo(src="assets/img/artist-1.jpg")
-              .team-member__title Kate Janczarek
-              .team-member__subtitle tatoo artist  
-            .team-member
-              img.team-member__photo(src="assets/img/artist-2.jpg")
-              .team-member__title Kate Janczarek
-              .team-member__subtitle tatoo artist
-            .team-member
-              img.team-member__photo(src="assets/img/artist-3.jpg")
-              .team-member__title Kate Janczarek
-              .team-member__subtitle tatoo artist    
+      // Our Team
+      .
+        <?php
+          $team = get_posts( array(
+                    'post_type'        => 'team',   
+                    'posts_per_page'   => 4, 
+                    'orderby'          => 'date'  
+                ) );
+        ?>
+      +phpIf( "$team" )
+        section#our-team.page-section
+          .wrapper
+            h2.headline Our team
+            .page-section__content.row.row--space-around  
+              +phpForeach( "$team as $post" )
+                +phpIf( "has_post_thumbnail( $post->ID )" )  
+                  .
+                    <?php
+                      $thumbs = get_the_post_thumbnail_url( $post->ID );
+                      $title = $post->post_title;
+                      $subtitle = $post->post_content;
+                    ?>      
+                  .team-member
+                    img.team-member__photo(src!=" <?php echo $thumbs; ?> ")
+                    .team-member__title
+                      +phpEcho( "$title" )
+                    .team-member__subtitle
+                      +phpEcho( "$subtitle" )
+        +php( "wp_reset_query()" )          
+
 
       // Gallery
       .
@@ -52,51 +71,84 @@ html
         ?>
       +phpIf( "$gallery" )
         section#gallery.page-section
-        .wrapper.test-class
-          h2.headline Gallery
-          .my-gallery.page-section__content.page-section__content--padding-bot.row--grid.row( itemscope itemtype="http://schema.org/ImageGallery" ) 
-            
-            +phpForeach( "$gallery as $post" )
-              +phpIf( "has_post_thumbnail( $post->ID )" )  
-                .
-                  <?php
-                    $thumbs = get_the_post_thumbnail_url( $post->ID );
-                    $size = getimagesize( $thumbs );
-                  
-                  ?>
-                figure.col-small-6.col-medium-3.col-large-2.col-gutter--gallery( itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" )                
-                  a( href!="<?php echo $thumbs; ?>" class="effect-bubba" itemprop="contentUrl" data-size!="<?php echo $size[0].'x'.$size[1]; ?>" ) 
-                    img.gallery__image(src!=" <?php echo $thumbs; ?> " itemprop="thumbnail" ) 
+          .wrapper.test-class
+            h2.headline Gallery
+            .my-gallery.page-section__content.page-section__content--padding-bot.row--grid.row( itemscope itemtype="http://schema.org/ImageGallery" ) 
+              
+              +phpForeach( "$gallery as $post" )
+                +phpIf( "has_post_thumbnail( $post->ID )" )  
+                  .
+                    <?php
+                      $thumbs = get_the_post_thumbnail_url( $post->ID );
+                      $size = getimagesize( $thumbs );
+                    
+                    ?>
+                  figure.col-small-6.col-medium-3.col-large-2.col-gutter--gallery( itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" )                
+                    a( href!="<?php echo $thumbs; ?>" itemprop="contentUrl" data-size!="<?php echo $size[0].'x'.$size[1]; ?>" ) 
+                      img.gallery__image(src!=" <?php echo $thumbs; ?> " itemprop="thumbnail" ) 
+              +php( "wp_reset_query()" )
+            a.btn.btn-glitch(href!="gallery") More
 
-                  
+
       section#info.page-section
         .row--grid
-          .col-medium-6
-            .wrapper.wrapper--left
-              h2.headline FAQ
-              .page-section__content.page-section__content--subsection
-                |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac risus molestie, venenatis erat vitae, lobortis dolor. Aliquam erat volutpat. Aenean velit neque, consequat sollicitudin turpis quis, rhoncus tempor lorem. Quisque vitae dolor eget nunc posuere interdum sed ultrices justo. Quisque laoreet a mauris quis tempor. Phasellus sollicitudin cursus facilisis. Phasellus massa ante, lacinia ac metus eu, dapibus lacinia nisl.
-              a.btn.btn-glitch(href!="#") More
-          .col-medium-6.background--dark
-            .wrapper.wrapper--right
-              h2.headline Pre care advice
-              .page-section__content.page-section__content--subsection
-                |  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac risus molestie, venenatis erat vitae, lobortis dolor. Aliquam erat volutpat. Aenean velit neque, consequat sollicitudin turpis quis, rhoncus tempor lorem. Quisque vitae dolor eget nunc posuere interdum sed ultrices justo. Quisque laoreet a mauris quis tempor. Phasellus sollicitudin cursus facilisis. Phasellus massa ante, lacinia ac metus eu, dapibus lacinia nisl.
-              a.btn.btn-glitch(href!="#") More
-        +php("global $post")
-        +php( "$args = array(" +
-          "'posts_per_page'   => 3," +
-          "'orderby'          => 'date'" +
-          ")" )
-        +php( "$myposts = get_posts( $args )" )
-        +phpIf( "$myposts" )  
+          // FAQ
+          .
+            <?php
+              $slug = 'faq';
+              $faq = get_page_by_path( $slug );
+              $page = $faq;
+              $description = get_post_meta( $page->ID, '_easy_wp_meta_description' )[0];
+            ?>
+          +phpIf( "$faq" )
+            .col-medium-6
+              .wrapper.wrapper--left
+
+                h2.headline 
+                  +phpEcho( "$page->post_title" )
+                .page-section__content.page-section__content--subsection
+                  +phpEcho( "wpautop( $description )" )  
+                a.btn.btn-glitch(href!="<?php echo $slug; ?>") More
+
+
+          // Pre care advice
+          .
+            <?php
+              $slug = 'pre-care-advice';
+              $preCareAdvice = get_page_by_path( $slug );
+              $page = $preCareAdvice;
+              $description = get_post_meta( $page->ID, '_easy_wp_meta_description' )[0];
+            ?>
+          +phpIf( "$preCareAdvice" )
+            .col-medium-6.background--dark
+              .wrapper.wrapper--right
+
+                
+                h2.headline
+                  +phpEcho( "$page->post_title" )
+                .page-section__content.page-section__content--subsection
+                  +phpEcho( "wpautop( $description )" )  
+                a.btn.btn-glitch(href!="<?php echo $slug; ?>") More
+
+        // Blog   
+        .
+          <?php
+            global $post;
+            $args = array(
+              'posts_per_page'   => 3,
+              'orderby'          => 'date'
+            );
+            $blogPosts = get_posts( $args );
+          ?>     
+
+        +phpIf( "$blogPosts" )  
           section#blog.page-section
             .wrapper
               h2.headline Blog
               .page-section__content.page-section__content--padding-bot.row.row--space-around
 
 
-                +phpForeach( "$myposts as $post" )
+                +phpForeach( "$blogPosts as $post" )
                   +php( "setup_postdata( $post )" )
 
                   .blog-post

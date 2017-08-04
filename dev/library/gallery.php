@@ -31,13 +31,13 @@ $gallery_args = array(
 ); 
 register_post_type('gallery', $gallery_args);
 
-add_action('manage_posts_custom_column', 'juju_custom_columns');
+add_action('manage_posts_custom_column', 'juju_gallery_custom_columns');
 add_filter('manage_edit-gallery_columns', 'juju_add_new_gallery_columns');
  
 function juju_add_new_gallery_columns( $columns ){
 	$columns = array(
 		'cb'				=>		'<input type="checkbox">',
-		'juju_post_thumb'	=>		'Thumbnail',
+		'juju_gallery_post_thumb'	=>		'Thumbnail',
 		'title'				=>		'Photo Title',
 		'author'			=>		'Author',
 		'date'				=>		'Date'
@@ -46,29 +46,29 @@ function juju_add_new_gallery_columns( $columns ){
 	return $columns;
 }
  
-function juju_custom_columns( $column ){
+function juju_gallery_custom_columns( $column ){
 	global $post;
 	
 	switch ($column) {
-		case 'juju_post_thumb' : echo the_post_thumbnail('admin-list-thumb'); break;
+		case 'juju_gallery_post_thumb' : echo the_post_thumbnail('admin-list-thumb'); break;
 		case 'description' : the_excerpt(); break;
 	}
 }
  
 //add thumbnail images to column
-add_filter('manage_posts_columns', 'juju_add_post_thumbnail_column', 5);
-add_filter('manage_pages_columns', 'juju_add_post_thumbnail_column', 5);
-add_filter('manage_custom_post_columns', 'juju_add_post_thumbnail_column', 5);
+add_filter('manage_posts_columns', 'juju_gallery_add_post_thumbnail_column', 5);
+add_filter('manage_pages_columns', 'juju_gallery_add_post_thumbnail_column', 5);
+add_filter('manage_custom_post_columns', 'juju_gallery_add_post_thumbnail_column', 5);
  
 // Add the column
-function juju_add_post_thumbnail_column($cols){
-	$cols['juju_post_thumb'] = __('Thumbnail');
+function juju_gallery_add_post_thumbnail_column($cols){
+	$cols['juju_gallery_post_thumb'] = __('Thumbnail');
 	return $cols;
 }
  
-function juju_display_post_thumbnail_column($col, $id){
+function juju_gallery_display_post_thumbnail_column($col, $id){
   switch($col){
-    case 'juju_post_thumb':
+    case 'juju_gallery_post_thumb':
       if( function_exists('the_post_thumbnail') )
         echo the_post_thumbnail( 'admin-list-thumb' );
       else

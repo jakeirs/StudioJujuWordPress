@@ -9,7 +9,12 @@ html
   body
     #home-welcome
       include header
-
+      .
+        <?php
+          global $post;
+          $description = get_post_meta( $post->ID, '_easy_wp_meta_description' )[0];
+        ?>
+      
       section#blog.page-section
         .wrapper
           h2.headline Blog
