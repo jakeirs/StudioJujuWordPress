@@ -21,7 +21,7 @@ gulp.task('clean', function() {
 
 //copy other stuff like library .php and images
 gulp.task('copyOtherStuff', function() {
-  return gulp.src(["./dev/**/img/*", "./dev/**/*.php", "./dev/*.{css,jpg,jpeg,png}"])
+  return gulp.src(["./dev/**/*.{svg,gif,css,jpg,jpeg,png}", "./dev/**/*.php", "./dev/*.{css,jpg,jpeg,png}"])
     .pipe(gulp.dest(wordpressPath));
 })
 
@@ -103,7 +103,7 @@ gulp.task('scriptsRefresh', ['scripts'], function(){
 // watch
 gulp.task('watch', ['clean','copyOtherStuff', 'pug', 'scripts', 'sass'], function(){
   gulp.watch(['./dev/assets/stylesheets/**/*.scss'], ['sass']);
-  gulp.watch(['./dev/*.pug'], ['pugRefresh'] );
+  gulp.watch(['./dev/**/*.pug'], ['pugRefresh'] );
   gulp.watch(['./dev/assets/scripts/**/*.js'], ['scriptsRefresh']);
   gulp.watch(['./dev/**/*.php', './dev/**/img/*'], ['copyOtherStuff']); 
 })
