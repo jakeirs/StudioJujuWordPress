@@ -1,4 +1,6 @@
 /*!
+Makes little change to library by Szymon Wojciechowski - jakeirs
+
 Waypoints Sticky Element Shortcut - 3.1.1
 Copyright © 2011-2015 Caleb Troughton
 Licensed under the MIT license.

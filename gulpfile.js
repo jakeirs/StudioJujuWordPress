@@ -20,7 +20,7 @@ gulp.task('clean', function() {
 
 
 //copy other stuff like library .php and images
-gulp.task('copyOtherStuff', function(){
+gulp.task('copyOtherStuff', function() {
   return gulp.src(["./dev/**/img/*", "./dev/**/*.php", "./dev/*.{css,jpg,jpeg,png}"])
     .pipe(gulp.dest(wordpressPath));
 })

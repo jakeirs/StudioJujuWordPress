@@ -1,8 +1,10 @@
+// base
 @import "base/_reset.scss";
 @import "base/_mixins.scss";
 @import "base/_variables.scss";
 @import "base/_global.scss";
 
+// modules
 @import "modules/_large-hero.scss";
 @import "modules/_logo.scss";
 @import "modules/_nav-main.scss";
@@ -22,13 +24,14 @@
 @import "modules/_generic-content.scss";
 @import "modules/_navbar.scss";
 
-
-
+// theme
 @import "theme/_background-dark.scss";
 @import "theme/_glitch-effect.scss";
 
+// vendor
+@import "vendor/photoSwipe/main.scss";
+@import "vendor/photoSwipe/default-skin/default-skin.scss";
 @import "../../../node_modules/photoswipe/src/css/main.scss";
-
 @import "../../../node_modules/photoswipe/src/css/default-skin/default-skin.scss";
 
 

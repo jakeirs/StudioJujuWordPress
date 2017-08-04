@@ -1,7 +1,7 @@
 import ToggleClassOnScroll from './modules/ToggleClassOnScroll';
-// import SetHeight from './modules/SetHeight';
 import glitchEffectButtons from './modules/GlitchEffectButtons';
 import waypointsSticky from './vendor/waypoints.sticky';
+import photoSwipe from './modules/photoSwipe';
 
 
 document.addEventListener('DOMContentLoaded', function(event) {
