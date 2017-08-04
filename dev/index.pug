@@ -10,7 +10,7 @@ html
     #home-welcome
       include header-home
 
-      include template-parts/test
+      //- include template-parts/test
       
 
       section#about-us.page-section
@@ -40,24 +40,34 @@ html
               img.team-member__photo(src="assets/img/artist-3.jpg")
               .team-member__title Kate Janczarek
               .team-member__subtitle tatoo artist    
+
+      // Gallery
       .
         <?php
           $gallery = get_posts( array(
-                    'post_type'    => 'gallery',    
-                    ) );
+                    'post_type'        => 'gallery',   
+                    'posts_per_page'   => 12, 
+                    'orderby'          => 'date'  
+                ) );
         ?>
       +phpIf( "$gallery" )
         section#gallery.page-section
         .wrapper.test-class
           h2.headline Gallery
-          .page-section__content.page-section__content--padding-bot.row--grid 
+          .my-gallery.page-section__content.page-section__content--padding-bot.row--grid.row( itemscope itemtype="http://schema.org/ImageGallery" ) 
+            
             +phpForeach( "$gallery as $post" )
               +phpIf( "has_post_thumbnail( $post->ID )" )  
-                +php( "$thumbs = get_the_post_thumbnail_url( $post->ID )" )
-                .col-small-6.col-medium-3.col-large-2.col-gutter--gallery
-                  img.gallery__item(src!="<?php echo $thumbs; ?>") 
+                .
+                  <?php
+                    $thumbs = get_the_post_thumbnail_url( $post->ID );
+                    $size = getimagesize( $thumbs );
+                  
+                  ?>
+                figure.col-small-6.col-medium-3.col-large-2.col-gutter--gallery( itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" )                
+                  a( href!="<?php echo $thumbs; ?>" class="effect-bubba" itemprop="contentUrl" data-size!="<?php echo $size[0].'x'.$size[1]; ?>" ) 
+                    img.gallery__image(src!=" <?php echo $thumbs; ?> " itemprop="thumbnail" ) 
 
-          a.btn.btn-glitch(href!="#") More
                   
       section#info.page-section
         .row--grid

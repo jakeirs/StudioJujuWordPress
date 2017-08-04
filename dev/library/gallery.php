@@ -39,7 +39,6 @@ function juju_add_new_gallery_columns( $columns ){
 		'cb'				=>		'<input type="checkbox">',
 		'juju_post_thumb'	=>		'Thumbnail',
 		'title'				=>		'Photo Title',
-		'phototype'			=>		'Photo Type',
 		'author'			=>		'Author',
 		'date'				=>		'Date'
 		
@@ -53,7 +52,6 @@ function juju_custom_columns( $column ){
 	switch ($column) {
 		case 'juju_post_thumb' : echo the_post_thumbnail('admin-list-thumb'); break;
 		case 'description' : the_excerpt(); break;
-		case 'phototype' : echo get_the_term_list( $post->ID, 'phototype', '', ', ',''); break;
 	}
 }
  
