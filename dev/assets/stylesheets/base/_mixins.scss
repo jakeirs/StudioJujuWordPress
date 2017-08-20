@@ -24,6 +24,12 @@
   }
 }
 
+@mixin atLargeMenu {
+  @media (min-width: $largeMenu) {
+    @content;
+  }
+}
+
 @mixin atExtraLarge {
   @media (min-width: $extraLarge) {
     @content;

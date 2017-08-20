@@ -6,6 +6,7 @@ class ToggleClassOnScroll {
     this.classToAdd = classToAdd;
     this.offset = offset;
     this.createWaypoints();
+    this.refresher();
   }
   
   createWaypoints() {
@@ -14,12 +15,24 @@ class ToggleClassOnScroll {
       currentItem = this.itemToAddClass;
     new Waypoint({
       element: currentItem,
-      handler: function() {
-        currentItem.classList.toggle(that.classToAdd);
+      handler: function(direction) {
+        if (direction !== "up") {
+          currentItem.classList.add(that.classToAdd);
+          
+        } else {
+          currentItem.classList.remove(that.classToAdd);
+        }
       },
       offset: that.offset,
     }); 
   }  
+
+  refresher() {
+    window.addEventListener("resize", function() {
+      Waypoint.refreshAll();
+      console.log("refresher")
+    });    
+  }
 }
 
 export default ToggleClassOnScroll;

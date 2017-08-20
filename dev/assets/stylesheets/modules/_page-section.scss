@@ -35,6 +35,7 @@
 }
 
 header {
+  position: relative;
   padding-bottom: 70px;
   @include atMedium {
     padding-bottom: 125px;
@@ -47,4 +48,6 @@ header {
     padding-top: 125px;
   }
 }
+
+
 

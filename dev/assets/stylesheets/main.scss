@@ -23,6 +23,9 @@
 @import "modules/_breadcrumbs.scss";
 @import "modules/_generic-content.scss";
 @import "modules/_navbar.scss";
+@import "modules/_switcher-lang.scss";
+@import "modules/_nav-mobile.scss";
+@import "modules/_team-popup.scss";
 
 // theme
 @import "theme/_background-dark.scss";
@@ -33,6 +36,8 @@
 @import "vendor/photoSwipe/default-skin/default-skin.scss";
 @import "../../../node_modules/photoswipe/src/css/main.scss";
 @import "../../../node_modules/photoswipe/src/css/default-skin/default-skin.scss";
+
+@import "vendor/hamburgers/hamburgers.scss";
 
 
 

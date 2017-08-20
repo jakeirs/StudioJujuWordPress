@@ -5,6 +5,11 @@
     padding-top: 60px;
   }  
 
+  display: none;
+  @include atLargeMenu {
+    display: block;
+  }
+
   &--no-padding {
     padding-top: 0!important;
   }
@@ -38,8 +43,13 @@
   &__link {
     line-height: 2;
     transition: $animationTime;
+
     &:hover {
       color: $secondaryColor;
+    }
+
+    &--is-current {
+      color: $secondaryColor!important;
     }
   }
 }

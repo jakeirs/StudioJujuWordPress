@@ -1,9 +1,22 @@
 .gallery {
 
   &__image {
-    // padding: 0 7px;
     width: 100%;
-    max-width: 320px;
+    // max-width: 320px;
+    max-width: 100%;
+    height: auto;
     display: inline-block;
+
+    @include atSmall {
+      height: 353px;
+    }  
+
+    @include atMedium {
+      height: 290px;
+    } 
+
+    @include atMedium {
+      height: 230px;
+    } 
   }
 }

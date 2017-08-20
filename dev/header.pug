@@ -4,39 +4,257 @@ include pug/_mixins
 header.page-section.page-section--first
   .large-hero.large-hero--subpage
     .logo--large-hero.logo.logo--subpage
-      include ./assets/img/juju-studio.svg
+      a.logo__link(href!="<?php echo get_home_url();?>" title="Tattoo JUJU")
+        include ./assets/img/juju-studio.svg
       
   #navbar.navbar
     .wrapper.wrapper--navbar
       .navbar__bar--left
         .logo.logo-navbar
-          include ./assets/img/juju-studio.svg 
+          a.logo__link(href!="<?php echo get_home_url();?>" title="Tattoo JUJU")
+            include ./assets/img/juju-studio.svg 
       .navbar__bar--right        
         nav#nav.nav.nav--right
           ul.nav__list.nav__list--inline
             li.nav__item
-              a.nav__link(href="") About Us
+              .
+                <?php
+                  $lang = pll_current_language();
+                  $slug = 'about';
+                  if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                      $slug = 'about-pl';
+                  } else {
+                    $slug = 'about';
+                  }  
+                  
+                  $page = get_page_by_path( $slug );
+                  $link = get_page_link( $page );
+                ?>
+              a#about-link.nav__link(href!="<?php echo $link; ?>" title="About Us")
+                +php( "pll_e( 'About Us' )" )
             li.nav__item
-              a.nav__link(href="") Our Team
+              a#our-team-link.nav__link(href!="<?php echo get_home_url() . '#our-team'; ?>" title="Our Team")
+                +php( "pll_e( 'Our Team' )" )
             li.nav__item
-              a.nav__link(href="") Gallery
+              . 
+                <?php
+                  $lang = pll_current_language();
+                  $slug = 'gallery';
+                  if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                      $slug = 'gallery-pl';
+                  } else {
+                    $slug = 'gallery';
+                  } 
+                  
+                  $page = get_page_by_path( $slug );
+                  $link = get_page_link( $page );
+                ?>
+              a#gallery-link.nav__link(href!="<?php echo $link; ?>" title="Gallery") 
+                +php( "pll_e( 'Gallery' )" )
             li.nav__item
-              a.nav__link(href="") FAQ
+              . 
+                <?php
+                  $lang = pll_current_language();
+                  $slug = 'faq';
+                  if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                      $slug = 'faq-pl';
+                  } else {
+                    $slug = 'faq';
+                  } 
+                  
+                  $page = get_page_by_path( $slug );
+                  $link = get_page_link( $page );
+                ?>
+              a.nav__link(href!="<?php echo $link; ?>" title="FAQ") 
+                +php( "pll_e( 'FAQ' )" ) 
             li.nav__item
-              a.nav__link(href="") Pre Care Advice
+              . 
+                <?php
+                  $lang = pll_current_language();
+                  $slug = 'pre-care-advice';
+                  if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                      $slug = 'pre-care-advice-pl';
+                  } else {
+                    $slug = 'pre-care-advice';
+                  } 
+                  
+                  $page = get_page_by_path( $slug );
+                  $link = get_page_link( $page );
+                ?>
+              a.nav__link(href!="<?php echo $link; ?>" title="FAQ")
+                +php( "pll_e( 'Pre Care Advice' )" ) 
             li.nav__item
-              a.nav__link(href="") Tatto Courses
+              . 
+                <?php
+                  $lang = pll_current_language();
+                  $slug = 'tattoo-courses';
+                  if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                      $slug = 'tattoo-courses-pl';
+                  } else {
+                    $slug = 'tattoo-courses';
+                  } 
+                  
+                  $page = get_page_by_path( $slug );
+                  $link = get_page_link( $page );
+                ?>
+              a#tattoo-courses-link.nav__link(href!="<?php echo $link; ?>" title="Tattoo Courses")
+                +php( "pll_e( 'Tattoo Courses' )" ) 
             li.nav__item
-              a.nav__link(href="") Blog
+              . 
+                <?php
+                  $lang = pll_current_language();
+                  $slug = 'blog';
+                  if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                      $slug = 'blog-pl';
+                  } else {
+                    $slug = 'blog';
+                  } 
+                  
+                  $page = get_page_by_path( $slug );
+                  $link = get_page_link( $page );
+                ?>
+              a#blog-link.nav__link(href!="<?php echo $link; ?>" title="Blog") 
+                +php( "pll_e( 'Blog' )" ) 
             li.nav__item
-              a.nav__link(href="") Contact
-            li.nav__item.nav__item--standout
-              a.nav__link(href="") pl
-
-        .social-media#social-media   
-          ul.social-media__list
-            li.social-media__item F
-            li.social-media__item F
-            li.social-media__item F 
-
+              a#contact-link.nav__link(href!="#contact" title="Contact") 
+                +php( "pll_e( 'Contact' )" ) 
+            .nav__item.nav__item--standout.position--relative 
+              a.nav__link(href="")
+                +phpEcho( "pll_current_language()" )
+              div.switcher-lang
+                +php( "pll_the_languages( array( display_names_as => 'slug' ) ) " )
+        button.hamburger.hamburger--collapse.js-hamburger.hamburger--in-out(type="button")
+          span.hamburger-box
+          span.hamburger-inner   
+  nav#nav-hamburger.nav-mobile
+    .nav-mobile__bar
+      .logo.logo--nav-mobile
+        include ./assets/img/juju-studio.svg 
+      button.hamburger.hamburger--collapse.js-hamburger.hamburger--in-menu(type="button")
+        span.hamburger-box
+        span.hamburger-inner
+      
+    ul.nav__list.nav__list--inline
+      li.nav__item
+        .
+          <?php
+            $lang = pll_current_language();
+            $slug = 'about';
+            if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                $slug = 'about-pl';
+            } else {
+              $slug = 'about';
+            }  
             
+            $page = get_page_by_path( $slug );
+            $link = get_page_link( $page );
+          ?>
+        a.about-link.nav__link(href!="<?php echo $link; ?>" title="About Us")
+          +php( "pll_e( 'About Us' )" )
+      li.nav__item
+        a.our-team-link.nav__link(href!="<?php echo get_home_url() . '#our-team'; ?>" title="Our Team")
+          +php( "pll_e( 'Our Team' )" )
+      li.nav__item
+        . 
+          <?php
+            $lang = pll_current_language();
+            $slug = 'gallery';
+            if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                $slug = 'gallery-pl';
+            } else {
+              $slug = 'gallery';
+            } 
+            
+            $page = get_page_by_path( $slug );
+            $link = get_page_link( $page );
+          ?>
+        a.gallery-link.nav__link(href!="<?php echo $link; ?>" title="Gallery") 
+          +php( "pll_e( 'Gallery' )" )
+      li.nav__item
+        . 
+          <?php
+            $lang = pll_current_language();
+            $slug = 'faq';
+            if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                $slug = 'faq-pl';
+            } else {
+              $slug = 'faq';
+            } 
+            
+            $page = get_page_by_path( $slug );
+            $link = get_page_link( $page );
+          ?>
+        a.nav__link(href!="<?php echo $link; ?>" title="FAQ") 
+          +php( "pll_e( 'FAQ' )" ) 
+      li.nav__item
+        . 
+          <?php
+            $lang = pll_current_language();
+            $slug = 'pre-care-advice';
+            if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                $slug = 'pre-care-advice-pl';
+            } else {
+              $slug = 'pre-care-advice';
+            } 
+            
+            $page = get_page_by_path( $slug );
+            $link = get_page_link( $page );
+          ?>
+        a.nav__link(href!="<?php echo $link; ?>" title="FAQ")
+          +php( "pll_e( 'Pre Care Advice' )" ) 
+      li.nav__item
+        . 
+          <?php
+            $lang = pll_current_language();
+            $slug = 'tattoo-courses';
+            if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                $slug = 'tattoo-courses-pl';
+            } else {
+              $slug = 'tattoo-courses';
+            } 
+            
+            $page = get_page_by_path( $slug );
+            $link = get_page_link( $page );
+          ?>
+        a.tattoo-courses-link.nav__link(href!="<?php echo $link; ?>" title="Tattoo Courses")
+          +php( "pll_e( 'Tattoo Courses' )" ) 
+      li.nav__item
+        . 
+          <?php
+            $lang = pll_current_language();
+            $slug = 'blog';
+            if ( $lang === 'pl' && get_page_by_path( $slug ) ) {
+                $slug = 'blog-pl';
+            } else {
+              $slug = 'blog';
+            } 
+            
+            $page = get_page_by_path( $slug );
+            $link = get_page_link( $page );
+          ?>
+        a.blog-link.nav__link(href!="<?php echo $link; ?>" title="Blog") 
+          +php( "pll_e( 'Blog' )" ) 
+      li.nav__item
+        a.contact-link.nav__link(href!="#contact" title="Contact") 
+          +php( "pll_e( 'Contact' )" ) 
+      .nav__item.nav__item--standout.position--relative 
+        a.nav__link.switcher-lang--hamburger
+          +phpEcho( "pll_current_language()" )
+        div.switcher-lang.switcher-lang--hamburger
+          +php( "pll_the_languages( array( display_names_as => 'slug' ) ) " )
+
+  .social-media#social-media   
+    ul.social-media__list
+      +phpIf( "get_option( 'facebook' )" )
+        li.social-media__item
+          a.social-media__link(href!="<?php echo get_option( 'facebook' ); ?>" title="facebook" target="_blank")
+            include ./assets/img/icons/icon_facebook.svg   
+      +phpIf( "get_option( 'instagram' )" )                 
+        li.social-media__item
+          a.social-media__link(href!="<?php echo get_option( 'instagram' ); ?>" title="instagram" target="_blank")
+            include ./assets/img/icons/icon_instagram.svg
+      +phpIf( "get_option( 'twitter' )" )         
+        li.social-media__item 
+          a.social-media__link(href!="<?php echo get_option( 'twitter' ); ?>" title="twitter" target="_blank")
+            include ./assets/img/icons/icon_twitter.svg    
+          div    

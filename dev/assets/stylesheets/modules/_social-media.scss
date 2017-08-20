@@ -13,14 +13,17 @@
     // width: 40px;
   }
 
-  &__item {
-
+  &__item {    
+    // background: #fff;
+    &:not(:first-child) {
+      margin-top: 12px;
+    }
   }
 
   &--fixed {
     transition: all 0.5s ease-in-out;
     position: fixed;
-    left: 0;
+    left: 10px;
     top: 45%!important;
     z-index: 20;
     opacity: 1;

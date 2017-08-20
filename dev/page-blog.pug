@@ -9,28 +9,27 @@ html
   body
     #home-welcome
       include header
-      .
-        <?php
-          global $post;
-          $description = get_post_meta( $post->ID, '_easy_wp_meta_description' )[0];
-        ?>
       
-      section#blog.page-section
+      
+      section#blog.page-section( data-matching-link="#blog-link" )
         .wrapper
-          h2.headline Blog
+          h2.headline 
+            +php( "the_title()" )
           .page-section__content.row.row--space-around
-            +php( "global $post" )
             .
               <?php
-              $args = array(
-                'posts_per_page'   => 12, 
-                'orderby'          => 'date' 
-              );
-              $myposts = get_posts( $args );
+
+                $currentPage = get_query_var('paged');
+                $blog_loop = new WP_Query( array(
+                  'posts_per_page' => 12,
+                  'paged' => $currentPage
+                ) );
+
+                $myposts = $blog_loop;
               ?>
             +phpIf( "$myposts" )  
-              +phpForeach( "$myposts as $post" )     
-                +php( "setup_postdata( $post )" ) 
+              +phpWhile( "$myposts->have_posts()" )     
+                +php( "$myposts->the_post()" ) 
                 .blog-post.blog-post--margin-bot
                   .blog-post__header
                     .blog-post__title
@@ -46,9 +45,17 @@ html
                     a(href!=" <?php the_permalink(); ?> ")    
                       img.blog-post__photo(src!='<?php the_post_thumbnail_url(); ?>')
                   .blog-post__excerpt
-                    +php( "the_excerpt()" )
-                        
-          a.btn.btn-glitch(href!="blog") Read More Posts
-            +php( "wp_reset_query()" )  
+                    +php( "the_excerpt()" ) 
+          .row.row--space-between.row--no-stretch          
+            +php( "$urlNext = get_next_posts_page_link( $myposts->max_num_pages)" )      
+            +php( "$urlPrev = get_previous_posts_page_link( $myposts->max_num_pages)" )  
+            +phpIf( "$currentPage !== 0" )
+              a.btn.btn-glitch.btn--margin-bottom(href!="<?php echo $urlPrev; ?>")             
+                +phpEcho( "pll_e( '&lt;&lt; Previous' )" )      
+            +phpIf( "$urlNext" )        
+              a.btn.btn-glitch.btn--right(href!="<?php echo $urlNext; ?>")             
+                +phpEcho( "pll_e( 'Next &gt;&gt;' )" )
+
+          +php( "wp_reset_query()" )  
 
       +php( "get_footer()" )

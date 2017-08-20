@@ -3,9 +3,10 @@
   padding: 10px 40px;
   border: 1px solid $secondaryColor;
   text-transform: uppercase;
+  text-align: center;
   font-size: 1rem;
   font-weight: 500;
-  transition: $animationTime;
+  transition: $animationTime;  
 
   &:hover {
     background-color: $primaryColorDark; 
@@ -13,4 +14,56 @@
     font-weight: 400;
     border-color: transparent;
   }
+
+  &--input {
+    width: 100%;
+    max-width: 450px;
+    display: block;    
+    background-color: transparent;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    color: $primaryColor;
+
+    @include atSmall {
+      width: initial;
+      display: inline-block; 
+    }
+  }
+
+  &--orange {
+    float: right;
+    background-color: $secondaryColor;
+    color: #fff;
+    font-weight: 300;
+    letter-spacing: 2px;
+  }
+
+  &--hide-file {
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100%;
+    font-size: 24px;
+    width: 100%;
+  }
+
+  &--margin-left {
+    margin-top: 40px;
+    @include atSmall {
+      margin-left: 60px;
+    }
+  }
+
+  &--margin-bottom {
+    margin-bottom: 30px;
+  }
+
+  &--right {
+    @include atSmall {
+      margin-left: auto; 
+    }     
+  }
 }
+

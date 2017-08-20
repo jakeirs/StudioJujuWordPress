@@ -1,23 +1,16 @@
 include pug/_mixins  
 
-section#contact.page-section.page-section--last
+section#contact.page-section.page-section--last( data-matching-link=".contact-link" )
   .row
     .col-medium-6.background--dark
       .wrapper.wrapper--left.wrapper--contact
         .row--grid.row--center-vertical
           .col-large-6
             .contact-details
-              | JUJU Tattoo Studio
-              br
-              | +48 600 600 600
-              br
-              | hello@juju.co.uk
-              br
-              | Picadyly street 883A
-              br
-              | London
-          .col-large-6  
-            form.contact-form  
+              +phpEcho( " wpautop( get_option( 'address_field' ) )" )
+          .col-large-6.contact-form  
+            +phpEcho(" do_shortcode( get_option( 'form_field' ) ) ")
+            //- form.contact-form  
               fieldset
                 input#email.input(name="email" type="email" placeholder="your email" )
                 textarea#message.input.input--textarea(name="name" placeholder="your message" )
@@ -37,7 +30,7 @@ section#contact.page-section.page-section--last
 footer.footer
   .wrapper.row.row--space-between
     .copyright copyright JUJU 2017 all rights reserved 
-    .site_authors design: jamuszyn coding: Surfidea
+    .site_authors design: jamuszyn coding: github:jakeirs
 
 include assets/img/glitch/buttons.svg
 include template-parts/photoswipe

@@ -58,7 +58,11 @@ $columnCount: 12;
   }
 
   &--grid {    
-  @extend %clearfix;
+    @extend %clearfix;
+  }
+
+  &--no-stretch {
+    align-items: flex-start;
   }
 }
 

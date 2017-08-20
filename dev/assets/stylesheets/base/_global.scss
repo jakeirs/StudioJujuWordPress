@@ -2,6 +2,8 @@ body {
   font-family: 'Roboto', Helvetica, sans-serif;
   font-size: 0.875rem; 
   color: $primaryColor;
+  min-width: 320px;
+  
   @include atSmall {
      
     font-size: 1.125rem;  
@@ -25,3 +27,6 @@ img {
   object-fit: cover;
 }
 
+.position--relative {
+  position: relative;
+}

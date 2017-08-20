@@ -15,17 +15,45 @@
     transition: transform 0.5s ease-in-out,
         opacity 0.5s ease-in-out,
         scale 1.6s ease-in-out;
-    transform: scale(1.5);  
-    opacity: 0;
     text-align: left;
+
+    @include atMedium {
+      transform: scale(1.5);  
+      opacity: 0;
+    }
 
     // class added dynamically by JS
     &--is-visible {
       transform:  scale(1);   
-      opacity: 1;   
-      svg {
-        // width: 50%;
-      }
+      opacity: 1;    
+    }
+
+    svg {
+      width: 50%;
+    }
+
+    path {
+      fill: #000!important;
+    }
+  }
+
+  &--nav-mobile {
+    height: 90px;
+    margin-left: 55px;
+    transition: transform 0.5s ease-in-out,
+        opacity 0.5s ease-in-out,
+        scale 1.6s ease-in-out;
+    transform: scale(1.5);  
+    text-align: left;
+    opacity: 0; 
+    
+    &.is-active {
+      opacity: 1;
+      transform:  scale(1);  
+    }
+
+    svg {
+      width: 50%;
     }
 
     path {
